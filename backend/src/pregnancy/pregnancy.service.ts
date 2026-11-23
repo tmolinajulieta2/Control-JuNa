@@ -26,12 +26,13 @@ export class PregnancyService {
     return space;
   }
 
-  async syncFamilyData(familyCode: string, payload: Partial<FamilySpace>) {
+  async syncFamilyData(familyCode: string, payload: Partial<FamilySpace> & { _id?: string }) {
     const code = familyCode.toUpperCase().trim();
+    const { _id, ...safePayload } = payload || {};
     return this.familyModel
       .findOneAndUpdate(
         { familyCode: code },
-        { $set: payload },
+        { $set: safePayload },
         { new: true, upsert: true },
       )
       .exec();
