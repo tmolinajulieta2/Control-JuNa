@@ -1,5 +1,5 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || 'http://localhost:3000/api/pregnancy';
+const RAW_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/pregnancy';
+const API_BASE_URL = RAW_API_URL.replace(/\/+$/, '');
 
 export async function fetchFamilySpace(familyCode) {
   const cleanCode = encodeURIComponent((familyCode || '').toUpperCase().trim());
